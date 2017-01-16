@@ -1,0 +1,14 @@
+var led = require('@amperka/led').connect(P0);
+var sensor = require('@amperka/light-sensor').connect(A0);
+var pot = require('@amperka/pot').connect(A5);
+
+
+setInterval(function(){
+  var threshold = pot.read()* 100;
+  var luxes = sensor.read('lx');
+  if (luxes<threshold) {
+    led.turnOn();
+  } else if(luxes>threshold + 40) {
+    led.turnOff();
+  }
+}, 10);
